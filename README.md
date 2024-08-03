@@ -3,13 +3,13 @@
 ## 01P `Linux`命令基础习惯
 
 1. `date`显示系统当前时间
-```vb
+```console
 [root@haibara OperatingSystem]# date
 Sat Aug  3 19:21:15 CST 2024
 ```
 
 2. `cat /etc/shells`查看当前可使用的`shell`
-```vb
+```console
 [root@haibara OperatingSystem]# cat /etc/shells
 /bin/sh
 /bin/bash
@@ -74,7 +74,7 @@ by-id  by-path  event0  event1  event2  event3  event4  event5  event6 mice  mou
 ## 03P 目录和文件操作 1
 
 1. `cd -`返回上一个目录
-```vb
+```console
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql OperatingSystem  TinyWebServer
 [root@haibara home]# cd ~
@@ -97,13 +97,13 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 3. `ls`列出当前文件夹下目录项
-```properties
+```console
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 ```
 
 4. `ls -l`显示目录项详细信息
-```properties
+```console
 [root@haibara home]# ls -l
 total 40
 drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
@@ -119,7 +119,7 @@ drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
 ```
 
 5. `ll`竖排显示目录项和详细信息，`ls -l`的缩写
-```bat
+```console
 [root@haibara home]# ll
 total 40
 drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
@@ -135,7 +135,7 @@ drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
 ```
 
 6. `ls -l dirname`显示`dirname`中目录详细信息
-```bat
+```console
 [root@haibara home]# ls -l TinyWebServer/
 total 109184
 -rw-r--r-- 1 root root   6029119 Jul  6 16:39 2024_02_20_ServerLog
@@ -170,13 +170,13 @@ drwxr-xr-x 2 root root      4096 Jul  6 16:43 timer
 ```
 
 7. `ls -dl dirname`显示`dirname`本身的详细信息
-```bat
+```console
 [root@haibara home]# ls -dl TinyWebServer/
 drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer/
 ```
 
 8. `ls -R`递归查看目录
-```vb
+```console
 [root@haibara home]# ls -R code/
 code/:
 A  B
@@ -189,7 +189,7 @@ b.txt
 ```
 
 9. `ls -Rl`递归展示详细信息
-```vb
+```console
 [root@haibara home]# ls -Rl code/
 code/:
 total 8
@@ -206,7 +206,7 @@ total 0
 ```
 
 10. 文件权限说明
-```vb
+```console
 drwxr-xr-x | 3        | root |  root |  4096 |  Jul  6 16:41 |  build
 -rw-r--r-- | 1        | root |  root |  24   |  Jul  6 16:41 |  build.sh
 drwxr-xr-x | 2        | root |  root |  4096 |  Jul  6 16:41 |  CGImysql
@@ -223,20 +223,20 @@ drwxr-xr-x | 2        | root |  root |  4096 |  Jul  6 16:41 |  CGImysql
 ```
 
 11. `which instruct`查看`instruct`命令所在目录位置
-```vb
+```console
 [root@haibara home]# which date
 /usr/bin/date
 ```
 
 12. 隐藏终端中的路径
-```vb
+```console
 vi ~./bash 打开使用的 shell 环境配置文件
 末尾添加 PS1=$ 保存退出，重启终端即可
 ```
 ![隐藏终端中的路径](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408032314894.png)
 
 13. `mkdir dirname`新建目录
-```vb
+```console
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 [root@haibara home]# mkdir tempDir
@@ -245,7 +245,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 14. `rmdir dirname`删除空目录，非空目录删不掉
-```vb
+```console
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempDir  TinyWebServer
 [root@haibara home]# rmdir tempDir/
@@ -254,7 +254,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 15. `touch filename`创建名为`name`的空文件
-```vb
+```console
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 [root@haibara home]# touch tempFile
@@ -263,7 +263,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 16. `rm filename`删除文件
-```vb
+```console
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempFile  TinyWebServer
 [root@haibara home]# rm tempFile 
@@ -273,7 +273,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 17. `rm -r dirname`递归删除目录
-```vb
+```console
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 [root@haibara home]# rm -r code/
@@ -283,7 +283,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 18. `rm -rf dirname`强制删除
-```vb
+```console
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 [root@haibara home]# rm -rf code/
@@ -292,7 +292,7 @@ dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mys
 ```
 
 19. `mv file1 file2 location`将文件 1 和文件 2 移动到目标位置
-```vb
+```console
 [root@haibara OperatingSystem]# ls
 a.txt  b.txt  tempDir
 [root@haibara OperatingSystem]# mv a.txt b.txt tempDir/
@@ -303,7 +303,7 @@ a.txt  b.txt
 ```
 
 20. `cp filename dirname`复制文件到目录
-```vb
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir
 [root@haibara OperatingSystem]# cp c.txt tempDir/
@@ -316,7 +316,7 @@ a.txt  b.txt  c.txt
 ```
 
 21. `cp filename1 filename2`复制文件 1 并重命名为文件 2
-```shell
+```console
 [root@haibara tempDir]# ls
 a.txt  b.txt  c.txt
 [root@haibara tempDir]# cp a.txt a_copy.txt
@@ -325,7 +325,7 @@ a_copy.txt  a.txt  b.txt  c.txt
 ```
 
 22. `cp -a dirname1 dirname2`复制目录 1 及其下所有文件到目录 2
-```shell
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir  tempDirCopy1  tempDirCopy2
 [root@haibara OperatingSystem]# cp -a tempDir tempDirCopy1
@@ -376,7 +376,7 @@ total 0
 ```
 
 23. `cp -r dirname1 dirname2`递归复制目录 1 到目录 2
-```shell
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir  tempDirCopy1  tempDirCopy2
 [root@haibara OperatingSystem]# cp -r tempDir tempDirCopy2
@@ -422,7 +422,7 @@ total 0
 
 ## 04P 目录和文件操作2
 1. `cat filename`查看文件内容
-```shell
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir  tempDirCopy1  tempDirCopy2
 [root@haibara OperatingSystem]# cat c.txt 
@@ -442,7 +442,7 @@ c.txt  tempDir  tempDirCopy1  tempDirCopy2
 ```
 
 2. `tac filename`逆转查看文件内容
-```shell
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir  tempDirCopy1  tempDirCopy2
 [root@haibara OperatingSystem]# tac c.txt 
@@ -462,7 +462,7 @@ c.txt  tempDir  tempDirCopy1  tempDirCopy2
 ```
 
 3. `cat`读取终端，就是回显
-```shell
+```console
 [root@haibara OperatingSystem]# cat
 读取终端，回显
 读取终端，回显
@@ -470,7 +470,7 @@ c.txt  tempDir  tempDirCopy1  tempDirCopy2
 ```
 
 4. `more filename`和`cat`差不多，但是对于大文件查看很强势。空格翻页，回车一行用`q`或者`Ctrl-c`退出
-```shell
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir  tempDirCopy1  tempDirCopy2
 [root@haibara OperatingSystem]# more c.txt 
@@ -490,14 +490,14 @@ c.txt  tempDir  tempDirCopy1  tempDirCopy2
 ```
 
 5. `less filename`也和`cat`差不多。会进入到另一个阅读界面，空格翻页，回车一行用`q`或者`Ctrl-c`退出
-```shell
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir  tempDirCopy1  tempDirCopy2
 [root@haibara OperatingSystem]# less c.txt 
 ```
 
 6. `head -n filename`查看文件前`n`行，不加`-n`参数默认查看 10 行
-```shell
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir  tempDirCopy1  tempDirCopy2
 [root@haibara OperatingSystem]# head -5 c.txt 
@@ -509,7 +509,7 @@ c.txt  tempDir  tempDirCopy1  tempDirCopy2
 ```
 
 7. `tail -n filename`查看文件后`n`行，默认查看 10 行，顺序显示
-```shell
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir  tempDirCopy1  tempDirCopy2
 [root@haibara OperatingSystem]# tail -5 c.txt 
@@ -521,7 +521,7 @@ c.txt  tempDir  tempDirCopy1  tempDirCopy2
 ```
 
 8. `tree`命令，查看当前目录结构树（需要自行下载`tree`）
-```shell
+```console
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir  tempDirCopy1  tempDirCopy2
 [root@haibara OperatingSystem]# tree

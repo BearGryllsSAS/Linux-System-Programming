@@ -1233,14 +1233,16 @@
 > 
 > `unrar x newdir.rar`解压`rar`文件
 > 
-> ![解压 rar 文件](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040211604.png)
+> ![解压 rar 文件](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040233198.png)
 
 2. `zip`压缩：`zip -r dir.zip dir`
 
-> ![zip 压缩](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040211559.png)
-> 
-> 
+> ![zip 压缩](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040232017.png)
+>
 > `zip`解压`unzip dir.zip`
+>
+> ![zip 解压](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040230128.png)
+> `zip`文件在`Windows`和`Linux`下通用
 
 ## 15P 其他命令
 

@@ -3,44 +3,44 @@
 ## 01P `Linux`命令基础习惯
 
 1. `date`显示系统当前时间
-```shell
-[root@haibara OperatingSystem]# date
-Sat Aug  3 19:21:15 CST 2024
-```
+> ```shell
+> [root@haibara OperatingSystem]# date
+> Sat Aug  3 19:21:15 CST 2024
+> ```
 
 2. `cat /etc/shells`查看当前可使用的`shell`
-```shell
-[root@haibara OperatingSystem]# cat /etc/shells
-/bin/sh
-/bin/bash
-/usr/bin/sh
-/usr/bin/bash
-```
+> ```shell
+> [root@haibara OperatingSystem]# cat /etc/shells
+> /bin/sh
+> /bin/bash
+> /usr/bin/sh
+> /usr/bin/bash
+> ```
 
 3. `echo $SHELL`查看当前使用的`shell`
-```shell
-[root@haibara OperatingSystem]# echo $SHELL
-/bin/bash
-```
+> ```shell
+> [root@haibara OperatingSystem]# echo $SHELL
+> /bin/bash
+> ```
 4. 主键盘快捷键
-```
-上              Ctrl-p
-下              Ctrl-n
-左              Ctrl-b
-右              Ctrl-f
-Del             Ctrl-d      delete 光标后面的
-Home            Ctrl-a      first letter
-End             Ctrl-e      end
-Backspace       Backspace   delete 光标前面的单个字符
-清除整行        Ctrl-u 
-删除光标到行末  Ctrl-k
-显示上滚        Shift-PgUp
-显示下滚        Shift-PgDn
-增大终端字体    Ctrl-Shift-+
-减小终端字体    Ctrl--
-新打开一个终端  Ctrl-Alt-T
-清屏 Ctrl-l 直接用 clear 也行
-```
+> ```
+> 上              Ctrl-p
+> 下              Ctrl-n
+> 左              Ctrl-b
+> 右              Ctrl-f
+> Del             Ctrl-d      delete 光标后面的
+> Home            Ctrl-a      first letter
+> End             Ctrl-e      end
+> Backspace       Backspace   delete 光标前面的单个字符
+> 清除整行        Ctrl-u 
+> 删除光标到行末  Ctrl-k
+> 显示上滚        Shift-PgUp
+> 显示下滚        Shift-PgDn
+> 增大终端字体    Ctrl-Shift-+
+> 减小终端字体    Ctrl--
+> 新打开一个终端  Ctrl-Alt-T
+> 清屏 Ctrl-l 直接用 clear 也行
+> ```
 
 ## 02P 类`Unix`系统目录
 

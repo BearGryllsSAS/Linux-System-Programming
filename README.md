@@ -3,7 +3,7 @@
 ## 01P `Linux`命令基础习惯
 
 1. `date`显示系统当前时间
-```shell
+```vb
 [root@haibara OperatingSystem]# date
 Sat Aug  3 19:21:15 CST 2024
 ```

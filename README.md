@@ -18,7 +18,7 @@ Sat Aug  3 19:21:15 CST 2024
 ```
 
 3. `echo $SHELL`查看当前使用的`shell`
-```vb
+```console
 [root@haibara OperatingSystem]# echo $SHELL
 /bin/bash
 ```
@@ -45,7 +45,7 @@ Backspace       Backspace   delete 光标前面的单个字符
 ## 02P 类`Unix`系统目录
 
 1. `pwd`查看当前所在目录
-```vb
+```console
 [root@haibara OperatingSystem]# pwd
 /home/OperatingSystem
 ```
@@ -63,7 +63,7 @@ usr：用户资源管理目录 unix software resource
 ```
 
 3. 查看鼠标日志
-```vb
+```console
 [root@haibara OperatingSystem]# cd /dev/input/
 [root@haibara input]# ls
 by-id  by-path  event0  event1  event2  event3  event4  event5  event6 mice  mouse0  mouse1  mouse2

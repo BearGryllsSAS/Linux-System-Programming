@@ -550,23 +550,697 @@
 
 ## 05P 软链接和硬链接
 
+1. `ln -s file file.s`创建一个软链接
+> ```shell
+> > [root@haibara OperatingSystem]# ls
+> > c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# ln -s c.txt c.txt.s
+> [root@haibara OperatingSystem]# ls
+> c.txt  c.txt.s  tempDir  tempDirCopy1  tempDirCopy2
+> ```
+> 软链接就像`Windows`下的快捷方式
+> ```shell
+> [root@haibara OperatingSystem]# cat c.txt.s 
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> 这是第六行
+> 这是第七行
+> 这是第八行
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> [root@haibara OperatingSystem]# cat c.txt
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> 这是第六行
+> 这是第七行
+> 这是第八行
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> ```
+> 软链接的大小是文件路径的大小
+> ```shell
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rw-r--r-- 1 root root  217 Aug  3 19:45 c.txt
+> lrwxrwxrwx 1 root root    5 Aug  3 19:51 c.txt.s -> c.txt
+> drwxr-xr-x 2 root root 4096 Aug  3 19:40 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> ```
+> `Linux`下的软链接行为和`Windows`下的快捷方式差不多，但是如果是用相对路径创建的软链接，在软链接移动之后就会失效，无法访问。这一点和`Windows`快捷方式不同，`Windows`快捷方式随便放哪里都行。
+> 
+> 失效的软链接
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  c.txt.s  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# mv c.txt.s tempDir
+> [root@haibara OperatingSystem]# ls tempDir
+> a_copy.txt  a.txt  b.txt  c.txt.s
+> ```
+> 所以，创建软链接最好使用绝对路径，移动后，绝对路径创建的软链接不会失效
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# ln -s /home/OperatingSystem/c.txt c.txt.s
+> [root@haibara OperatingSystem]# ls
+> c.txt  c.txt.s  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# mv c.txt.s tempDir
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# ls tempDir
+> a_copy.txt  a.txt  b.txt  c.txt.s
+> [root@haibara OperatingSystem]# cat tempDir/c.txt.s 
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> 这是第六行
+> 这是第七行
+> 这是第八行
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> [root@haibara OperatingSystem]# ll -a tempDir
+> total 8
+> drwxr-xr-x 2 root root 4096 Aug  3 19:54 .
+> drwxr-xr-x 5 root root 4096 Aug  3 19:54 ..
+> -rw-r--r-- 1 root root    0 Aug  3 19:40 a_copy.txt
+> -rw-r--r-- 1 root root    0 Aug  3 19:38 a.txt
+> -rw-r--r-- 1 root root    0 Aug  3 19:39 b.txt
+> lrwxrwxrwx 1 root root   27 Aug  3 19:54 c.txt.s -> /home/OperatingSystem/c.txt
+> ```
+> 注意，软链接的权限指的是这个软链接本身的权限，不是软链接指向文件的权限
+
+2. `ln file file.h`创建一个硬链接
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# ln c.txt c.txt.s
+> [root@haibara OperatingSystem]# ll -a
+> total 28
+> drwxr-xr-x   5 root root 4096 Aug  3 19:55 .
+> drwxr-xr-x. 11 root root 4096 Aug  3 19:38 ..
+> -rw-r--r--   2 root root  217 Aug  3 19:45 c.txt
+> -rw-r--r--   2 root root  217 Aug  3 19:45 c.txt.s
+> drwxr-xr-x   2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x   3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x   3 root root 4096 Aug  3 19:43 tempDirCopy2
+> ```
+> 创建硬链接后，文件的硬链接计数 +1
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# ln c.txt c.txt.s
+> [root@haibara OperatingSystem]# ll -a
+> total 28
+> drwxr-xr-x   5 root root 4096 Aug  3 19:55 .
+> drwxr-xr-x. 11 root root 4096 Aug  3 19:38 ..
+> -rw-r--r--   2 root root  217 Aug  3 19:45 c.txt
+> -rw-r--r--   2 root root  217 Aug  3 19:45 c.txt.s
+> drwxr-xr-x   2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x   3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x   3 root root 4096 Aug  3 19:43 tempDirCopy2
+> ```
+> 再创建一个硬链接
+> ```shell
+> [root@haibara OperatingSystem]# ln c.txt.s c.txt2.s
+> [root@haibara OperatingSystem]# ll -a
+> total 32
+> drwxr-xr-x   5 root root 4096 Aug  3 19:56 .
+> drwxr-xr-x. 11 root root 4096 Aug  3 19:38 ..
+> -rw-r--r--   3 root root  217 Aug  3 19:45 c.txt
+> -rw-r--r--   3 root root  217 Aug  3 19:45 
+> -rw-r--r--   3 root root  217 Aug  3 19:45 c.txt.s
+> drwxr-xr-x   2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x   3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x   3 root root 4096 Aug  3 19:43 tempDirCopy2
+> ```
+> 这里对于`c.txt`，有 2 个硬链接`c.txt.s`和`c.txt2.s`，无论更改哪个硬链接或者文件本身，这三个文件的变化同步
+> ```shell
+> [root@haibara OperatingSystem]# cat c.txt
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> 这是第六行
+> 这是第七行
+> 这是第八行
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> [root@haibara OperatingSystem]# cat c.txt.s 
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> 这是第六行
+> 这是第七行
+> 这是第八行
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> [root@haibara OperatingSystem]# cat c.txt2.s 
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> 这是第六行
+> 这是第七行
+> 这是第八行
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> [root@haibara OperatingSystem]# vim c.txt2.s 
+> [root@haibara OperatingSystem]# cat c.txt
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> 这是第六行
+> 这是第七行
+> 这是第八行
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> 这是第十四行
+> ```
+> 产生这种同步变化的原因
+> 
+> ![Inode](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040105869.png)
+> 
+> 可以看到文件和硬链接的`Inode`是相同的，每个文件都有唯一的`Inode`，直观理解起来就像洗佳佳里面的引用，对于同一个文件，无论有多少引用，在访问时，都是这个文件，所以修改就是同步的。
+> 
+> 当删除一个硬链接时，文件的硬链接计数 -1，当这个计数减为 0 时，才会删除这个文件
+> ```shell
+> [root@haibara OperatingSystem]# ll
+> total 24
+> -rw-r--r-- 3 root root  236 Aug  3 19:57 c.txt
+> -rw-r--r-- 3 root root  236 Aug  3 19:57 c.txt2.s
+> -rw-r--r-- 3 root root  236 Aug  3 19:57 c.txt.s
+> drwxr-xr-x 2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> [root@haibara OperatingSystem]# rm c.txt2.s 
+> rm: remove regular file 'c.txt2.s'? y 
+> [root@haibara OperatingSystem]# ll
+> total 20
+> -rw-r--r-- 2 root root  236 Aug  3 19:57 c.txt
+> -rw-r--r-- 2 root root  236 Aug  3 19:57 c.txt.s
+> drwxr-xr-x 2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> ```
+> 即使删除硬链接指向的文件，也只会让硬链接计数-1
+
+
 ## 06P 创建修改用户和用户组
 
+1. `whoami`查看当前用户
+> ```shell
+> [root@haibara OperatingSystem]# whoami
+> root
+> ```
+
+2. `chmod`修改权限操作
+
+> 第一种，文字设定法
+> ```
+> chmod [who] [+|-|=] [mode] filename
+> 
+> 操作对象 who 可以是下述字母中的任一个或者它们的组合
+> u 表示”用户(user)”，即文件或目录的所有者
+> g 表示”同组(group)用户”，即与文件所有者有相同组 ID 的所有用户
+> o 表示”其他(others)用户”
+> a 表示”所有(all)用户”，它是系统默认值
+> 
+> 操作符号可以是：
+> + 添加某个权限
+> - 取消某个权限
+> = 赋予给定权限并取消其他所有权限（如果有的话）
+> ```
+> 如下所示，给`c.txt`文件添加执行权限
+> ```shell
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rw-r--r-- 1 root root  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> [root@haibara OperatingSystem]# chmod u+x c.txt 
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rwxr--r-- 1 root root  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> ```
+> 
+> 第二种，数字设定法
+> ```
+> chmod 操作码 filename 直接用操作码修改文件权限
+> 对于 file2 的权限
+> -rw-rw-r—
+> 421421421
+> 三个组的权限都用二进制编号，比如要设置当前用户对文件的读写和执行权限，则当前用户的操作权
+> 限为 4（读）+ 2（写）+ 1（执行） = 7
+> 用户组和其他用户的权限设置也是一样的
+> ```
+> 
+> 对于`c.txt`的权限`-rw-r--r--`我们设置如下：
+> 
+> 所有者 `rw-` = 6
+> 
+> 所有者所在组 `rw-` = 6
+> 
+> 其他用户 `r--` = 4
+> 
+> 操作码就是 644
+> 
+> ```shell
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rwxr--r-- 1 root root  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> [root@haibara OperatingSystem]# chmod 644 c.txt 
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rw-r--r-- 1 root root  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> ```
+
+3. `sudo adduser newusername`添加新用户
+> ```shell
+> [root@haibara OperatingSystem]# adduser tempUser
+> ```
+
+4. `chown username filename`修改文件所有者
+> ```shell
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rw-r--r-- 1 root root  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> [root@haibara OperatingSystem]# chown tempUser c.txt 
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rw-r--r-- 1 tempUser root  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root     root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root     root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root     root 4096 Aug  3 19:43 tempDirCopy2
+> ```
+
+5. `su username`切换当前用户为`username`
+> ```shell
+> [root@haibara OperatingSystem]# su root
+> [root@haibara OperatingSystem]# su tempUser
+> [tempUser@haibara OperatingSystem]$ su root
+> Password: 
+> ```
+
+6. `sudo groupadd groupname`添加新的用户组
+> ```shell
+> [root@haibara OperatingSystem]# groupadd tempGroup
+> ```
+
+7. `sudo chgrp groupname filename`修改文件所属用户组
+> ```shell
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rw-r--r-- 1 tempUser root  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root     root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root     root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root     root 4096 Aug  3 19:43 tempDirCopy2
+> [root@haibara OperatingSystem]# chgrp tempGroup c.txt 
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rw-r--r-- 1 tempUser tempGroup  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root     root      4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root     root      4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root     root      4096 Aug  3 19:43 tempDirCopy2
+> ```
+
+8. `sudo chown username:groupname filename`同时修改文件所属用户和用户组
+> ```shell
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rw-r--r-- 1 tempUser tempGroup  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root     root      4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root     root      4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root     root      4096 Aug  3 19:43 tempDirCopy2
+> [root@haibara OperatingSystem]# chown root:root c.txt 
+> [root@haibara OperatingSystem]# ll
+> total 16
+> -rw-r--r-- 1 root root  236 Aug  3 19:57 c.txt
+> drwxr-xr-x 2 root root 4096 Aug  3 19:54 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> ```
+
+9. `sudo userdel username`删除用户
+> ```shell
+> [root@haibara OperatingSystem]# userdel  tempUser 
+> ```
+
+10. `sudo groupdel groupname`删除用户组
+> ```shell
+> [root@haibara OperatingSystem]# groupdel tempGroup 
+> ```
+
 ## 07P `find`命令1
+
+1. `find`命令：找文件
+
+> `-type`按文件类型搜索 `d/p/s/c/b/l/`
+> ```shell
+> [root@haibara OperatingSystem]# find ./ -type d
+> ./
+> ./tempDirCopy1
+> ./tempDirCopy1/tempDir
+> ./tempDirCopy2
+> ./tempDirCopy2/tempDir
+> ./tempDir
+> ```
+> 
+> `-name`按文件名搜索
+> ```shell
+> [root@haibara OperatingSystem]# find ./ -name '*.txt'
+> ./tempDirCopy1/tempDir/a.txt
+> ./tempDirCopy1/tempDir/b.txt
+> ./tempDirCopy1/tempDir/c.txt
+> ./tempDirCopy1/tempDir/a_copy.txt
+> ./tempDirCopy2/tempDir/a.txt
+> ./tempDirCopy2/tempDir/b.txt
+> ./tempDirCopy2/tempDir/c.txt
+> ./tempDirCopy2/tempDir/a_copy.txt
+> ./tempDir/a.txt
+> ./tempDir/b.txt
+> ./tempDir/a_copy.txt
+> ./c.txt
+> ```
+> 
+> `-maxdepth`指定搜索深度，应作为第一个参数出现
+> ```shell
+> [root@haibara OperatingSystem]# find ./ -maxdepth 1 -name '*.txt'
+> ./c.txt
+> [root@haibara OperatingSystem]# find ./ -maxdepth 2 -name '*.txt'
+> ./tempDir/a.txt
+> ./tempDir/b.txt
+> ./tempDir/a_copy.txt
+> ./c.txt
+> ```
+> 
+> `-size`按文件大小搜索，单位：`k、M、G`
+> ```shell
+> [root@haibara OperatingSystem]# cd /bin/
+> [root@haibara bin]# find ./ -size +10M -size -20M
+> ./runc
+> [root@haibara bin]# ll ./runc
+> -rwxr-xr-x 1 root root 13773648 May 23 04:15 ./runc
+> ```
+> 这里要注意，两个`size`一个都不能少，还有就是文件大小单位对大小写敏感
+> 
+> 按照时间搜索    `-atime、mtime、ctime`天    `-amin、mmin、cmin`分钟
+> ```
+> a 表示最近访问时间
+> m 表示最近更改时间，指更改文件属性一类的
+> c 表示最近改动时间，指更改文件内容
+> ```
 
 ## 08P 午后复习
 
 ## 09P `find`命令2
 
+> 1. `-exec`：将`find`搜索的结果集执行某一指定命令
+> ```shell
+> [root@haibara OperatingSystem]# find ./ -name '*.txt' -exec ls -l {} \;
+> -rw-r--r-- 1 root root 0 Aug  3 19:38 ./tempDirCopy1/tempDir/a.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:39 ./tempDirCopy1/tempDir/b.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 ./tempDirCopy1/tempDir/c.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 ./tempDirCopy1/tempDir/a_copy.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:43 ./tempDirCopy2/tempDir/a.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:43 ./tempDirCopy2/tempDir/b.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:43 ./tempDirCopy2/tempDir/c.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:43 ./tempDirCopy2/tempDir/a_copy.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:38 ./tempDir/a.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:39 ./tempDir/b.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 ./tempDir/a_copy.txt
+> -rw-r--r-- 1 root root 236 Aug  3 19:57 ./c.txt
+> ```
+
+2. `-ok`: 以交互式的方式 将`find`搜索的结果集执行某一指定命令
+> ```shell
+> [root@haibara OperatingSystem]# find ./ -maxdepth 2 -name '*.txt' -ok ls -l {} \;
+> < ls ... ./tempDir/a.txt > ? y
+> -rw-r--r-- 1 root root 0 Aug  3 19:38 ./tempDir/a.txt
+> < ls ... ./tempDir/b.txt > ? y
+> -rw-r--r-- 1 root root 0 Aug  3 19:39 ./tempDir/b.txt
+> < ls ... ./tempDir/a_copy.txt > ? y
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 ./tempDir/a_copy.txt
+> < ls ... ./c.txt > ? y
+> -rw-r--r-- 1 root root 236 Aug  3 19:57 ./c.txt
+> ```
+
 ## 10P `grep`和`xargs`
+
+> 1. `grep`命令：找文件内容
+> ```shell
+> [root@haibara OperatingSystem]# grep -r '第四行' ./ -n
+> ./tempDir/c.txt:4:这是第四行
+> ./c.txt:4:这是第四行
+> [root@haibara OperatingSystem]# grep -r '第四行' ./ 
+> ./tempDir/c.txt:这是第四行
+> ./c.txt:这是第四行
+> ```
+> `-n`参数：显示行号
+
+2. `ps`监控后台进程工作情况，默认只显示当前可以和用户交互的进程
+> ```shell
+> [root@haibara OperatingSystem]# ps
+>     PID TTY          TIME CMD
+>    1898 pts/0    01:07:38 minio
+>  412692 pts/0    00:00:00 bash
+>  413654 pts/0    00:00:00 su
+>  413655 pts/0    00:00:00 bash
+>  413679 pts/0    00:00:00 su
+>  413708 pts/0    00:00:00 su
+>  413711 pts/0    00:00:00 bash
+>  440616 pts/0    00:00:00 su
+>  440617 pts/0    00:00:00 bash
+>  440918 pts/0    00:00:00 ps
+> ```
+
+3. `ps aux | grep 'cupsd'` 检索进程结果集
+> ```shell
+> [root@haibara OperatingSystem]# ps aux | grep kernel
+> root      440923  0.0  0.0  12144  1176 pts/0    S+   20:24   0:00 grep --color=auto kernel
+> ```
+> 使用`grep`搜索进程，有一条结果是搜索进程本身
+
+4. `find … | xargs ls -l`
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# find ./ -maxdepth 1 -name '*.txt'| xargs ls -l
+> -rw-r--r-- 1 root root 236 Aug  3 19:57 ./c.txt
+> [root@haibara OperatingSystem]# find ./ -maxdepth 2 -name '*.txt'| xargs ls -l
+> -rw-r--r-- 1 root root 236 Aug  3 19:57 ./c.txt
+> -rw-r--r-- 1 root root   0 Aug  3 19:40 ./tempDir/a_copy.txt
+> -rw-r--r-- 1 root root   0 Aug  3 19:38 ./tempDir/a.txt
+> -rw-r--r-- 1 root root   0 Aug  3 19:39 ./tempDir/b.txt
+> -rw-r--r-- 1 root root 236 Aug  3 20:23 ./tempDir/c.txt
+> ```
+> 对`find`操作的结果集进行操作等价于`find … -exec ls -l {} \；`两者差别在于当结果集合很大的时候，`xargs`会对结果进行分段处理，所以性能好些，但`xargs`也有缺陷，`xargs`默认用空格来分割结果集，当文件名有空格的时候，会因为文件名被切割失效
+> 
+> `-xargs`：将`find`搜索的结果集执行某一指定命令，当结果集数量过大时，可以分片映射
+
+5. 创建名字带空格的文件方法
+
+>    ![创建名字带空格的文件方法](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040142528.png)
+
+
+6. `xargs`缺陷演示
+
+>    ![xargs 缺陷演示](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040143116.png)
+
 
 ## 11P `xargs`加强和`awk`说明
 
 ## 12P 软件包安装
 
+1. `sudo yum install softname`安装软件
+> ```shell
+> [root@haibara OperatingSystem]# yum install tree
+> Last metadata expiration check: 1:10:25 ago on Sat 03 Aug 2024 07:39:02 PM CST.
+> Package tree-1.7.0-15.0.1.an8.x86_64 is already installed.
+> Dependencies resolved.
+> Nothing to do.
+> Complete!
+> ```
+
+2. `sudo yum update`更新软件列表
+
+3. 更换软件源：系统设置->软件和更新->下载自…    
+    换软件源过后要更新软件列表
+
+4. `sudo yum remove softname` 卸载软件
+
+5. 使用安装包进行软件安装
+
+>    ![使用安装包进行软件安装](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040153341.png)
+
+
 ## 13P 压缩命令`gzip`和`bzip2`
 
+> 两者都是配合`tar`打包命令使用这两个压缩的缺陷都是只能对单个文件进行压缩，一来不能压目录，二来不能打包
+> 
+> 第一种压缩方式：`gzip`
+> 
+> `tar zcvf` 要生成的压缩包名 压缩材料，这里压缩包名一般以`.tar.gz`结尾
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# tar zcvf sum.tar.gz a.txt b.txt c.txt d.txt 
+> a.txt
+> b.txt
+> c.txt
+> d.txt
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> ```
+> 上述命令实际上执行了两步，一个是`gzip`进行压缩`gzip filename`
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# gzip a.txt 
+> [root@haibara OperatingSystem]# ls
+> a.txt.gz  b.txt  c.txt  d.txt  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> ```
+> 解压`gunzip zipfile`
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# gunzip a.txt.gz 
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> ```
+> 
+> 另一个是打包命令`tar file… tarname`
+> 
+> 所以`tar zcvf`是两条指令的结合版本，对`zcvf`进行解释
+> ```
+> z:zip，压缩
+> c:create，创建
+> v:vision，显示压缩过程，可以去掉，直接用 zcf，但这样不显示压缩过程
+> f:file，文件
+> ```
+> 
+> `file filename`查看文件来源
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> a.txt  a.txt.tar.gz  b.txt  c.txt  d.txt  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# file a.txt.tar.gz 
+> a.txt.tar.gz: POSIX tar archive (GNU)
+> [root@haibara OperatingSystem]# ls
+> a.txt  a.txt.tar.gz  b.txt  c.txt  d.txt  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# file sum.tar.gz 
+> sum.tar.gz: gzip compressed data, last modified: Sat Aug  3 14:23:11 2024, from Unix, original size 10240
+> ```
+> 
+> 第二种压缩方式：使用`bzip2`方式压缩
+> 
+> `tar jcvf` 要生成的压缩包名 压缩材料
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# tar -jcvf sum2.tar.gz a.txt b.txt c.txt d.txt 
+> a.txt
+> b.txt
+> c.txt
+> d.txt
+> [root@haibara OperatingSystem]# file sum2.tar.gz 
+> sum2.tar.gz: bzip2 compressed data, block size = 900k
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  sum2.tar.gz  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> ```
+> 
+> 解压：将压缩命令中的`c --> x`
+> 
+> `tar zxvf`压缩材料 使用`gzip`解压
+> 
+> `tar jxvf`压缩材料 使用`bzip2`解压
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  sum2.tar.gz  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# tar -zxvf sum.tar.gz 
+> a.txt
+> b.txt
+> c.txt
+> d.txt
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  sum2.tar.gz  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# tar -jxvf sum2.tar.gz
+> a.txt
+> b.txt
+> c.txt
+> d.txt
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  c.txt  d.txt  sum2.tar.gz  sum.tar.gz  tempDir  tempDirCopy1  tempDirCopy2
+> ```
+
 ## 14P `rar`压缩和`zip`压缩
+
+1. `rar`压缩
+
+> 需要安装`rar`
+> 
+> ![安装 rar](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040210089.png)
+> 
+> `rar a -r newdir dir`打包，把`dir`压缩成`newdir.rar`，如果压缩材料里没有目录，`-r`参数可以省去
+> 
+> ![rar 压缩](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040210066.png)
+> 
+> `unrar x newdir.rar`解压`rar`文件
+> 
+> ![解压 rar 文件](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040211604.png)
+
+2. `zip`压缩：`zip -r dir.zip dir`
+
+> ![zip 压缩](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408040211559.png)
+> 
+> 
+> `zip`解压`unzip dir.zip`
 
 ## 15P 其他命令
 

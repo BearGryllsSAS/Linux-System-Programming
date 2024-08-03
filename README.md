@@ -97,13 +97,13 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 3. `ls`列出当前文件夹下目录项
-```vb
+```properties
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 ```
 
 4. `ls -l`显示目录项详细信息
-```vb
+```properties
 [root@haibara home]# ls -l
 total 40
 drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
@@ -119,7 +119,7 @@ drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
 ```
 
 5. `ll`竖排显示目录项和详细信息，`ls -l`的缩写
-```vb
+```bat
 [root@haibara home]# ll
 total 40
 drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
@@ -135,7 +135,7 @@ drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
 ```
 
 6. `ls -l dirname`显示`dirname`中目录详细信息
-```vb
+```bat
 [root@haibara home]# ls -l TinyWebServer/
 total 109184
 -rw-r--r-- 1 root root   6029119 Jul  6 16:39 2024_02_20_ServerLog
@@ -170,7 +170,7 @@ drwxr-xr-x 2 root root      4096 Jul  6 16:43 timer
 ```
 
 7. `ls -dl dirname`显示`dirname`本身的详细信息
-```vb
+```bat
 [root@haibara home]# ls -dl TinyWebServer/
 drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer/
 ```

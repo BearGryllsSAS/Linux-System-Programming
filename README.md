@@ -45,44 +45,44 @@
 ## 02P 类`Unix`系统目录
 
 1. `pwd`查看当前所在目录
-```shell
-[root@haibara OperatingSystem]# pwd
-/home/OperatingSystem
-```
+> ```shell
+> [root@haibara OperatingSystem]# pwd
+> /home/OperatingSystem
+> ```
 
 2. `Linux`系统目录
-```
-bin：存放二进制可执行文件
-boot：存放开机启动程序
-dev：存放设备文件：字符设备、块设备
-home：存放普通用户
-etc：用户信息和系统配置文件 passwd、group
-lib：库文件：libc.so.6
-root：管理员宿主目录（家目录）
-usr：用户资源管理目录 unix software resource
-```
+> ```
+> bin：存放二进制可执行文件
+> boot：存放开机启动程序
+> dev：存放设备文件：字符设备、块设备
+> home：存放普通用户
+> etc：用户信息和系统配置文件 passwd、group
+> lib：库文件：libc.so.6
+> root：管理员宿主目录（家目录）
+> usr：用户资源管理目录 unix software resource
+> ```
 
 3. 查看鼠标日志
-```shell
-[root@haibara OperatingSystem]# cd /dev/input/
-[root@haibara input]# ls
-by-id  by-path  event0  event1  event2  event3  event4  event5  event6 mice  mouse0  mouse1  mouse2
-[root@haibara input]# cat mice 
-����^C
-```
+> ```shell
+> [root@haibara OperatingSystem]# cd /dev/input/
+> [root@haibara input]# ls
+> by-id  by-path  event0  event1  event2  event3  event4  event5  event6 mice  mouse0  mouse1  mouse2
+> [root@haibara input]# cat mice 
+> ����^C
+> ```
 
 ## 03P 目录和文件操作 1
 
 1. `cd -`返回上一个目录
-```shell
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql OperatingSystem  TinyWebServer
-[root@haibara home]# cd ~
-[root@haibara ~]# cd -
-/home
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql OperatingSystem  TinyWebServer
+> [root@haibara home]# cd ~
+> [root@haibara ~]# cd -
+> /home
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> ```
 
 2. `Linux`系统文件类型
 ```
@@ -97,456 +97,456 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 3. `ls`列出当前文件夹下目录项
-```shell
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> ```
 
 4. `ls -l`显示目录项详细信息
-```shell
-[root@haibara home]# ls -l
-total 40
-drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
-drwxr-xr-x  3 root root 4096 Jul  4 17:30 dfs
-drwxr-xr-x  5 root root 4096 Jul  6 16:36 InternetChatRoom
-drwxr-xr-x  9 root root 4096 Jul  6 16:39 linux_high_performance_servers
-drwxr-xr-x  2 root root 4096 Jul 14 17:48 metting
-drwxr-xr-x  3 root root 4096 Jun 30 18:05 minio
-drwxr-xr-x  4 root root 4096 Jul  5 18:49 moyi
-drwxr-xr-x  5 root root 4096 Jun 30 17:47 mysql
-drwxr-xr-x  2 root root 4096 Aug  3 12:23 OperatingSystem
-drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ls -l
+> total 40
+> drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
+> drwxr-xr-x  3 root root 4096 Jul  4 17:30 dfs
+> drwxr-xr-x  5 root root 4096 Jul  6 16:36 InternetChatRoom
+> drwxr-xr-x  9 root root 4096 Jul  6 16:39 linux_high_performance_servers
+> drwxr-xr-x  2 root root 4096 Jul 14 17:48 metting
+> drwxr-xr-x  3 root root 4096 Jun 30 18:05 minio
+> drwxr-xr-x  4 root root 4096 Jul  5 18:49 moyi
+> drwxr-xr-x  5 root root 4096 Jun 30 17:47 mysql
+> drwxr-xr-x  2 root root 4096 Aug  3 12:23 OperatingSystem
+> drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
+> ```
 
 5. `ll`竖排显示目录项和详细信息，`ls -l`的缩写
-```shell
-[root@haibara home]# ll
-total 40
-drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
-drwxr-xr-x  3 root root 4096 Jul  4 17:30 dfs
-drwxr-xr-x  5 root root 4096 Jul  6 16:36 InternetChatRoom
-drwxr-xr-x  9 root root 4096 Jul  6 16:39 linux_high_performance_servers
-drwxr-xr-x  2 root root 4096 Jul 14 17:48 metting
-drwxr-xr-x  3 root root 4096 Jun 30 18:05 minio
-drwxr-xr-x  4 root root 4096 Jul  5 18:49 moyi
-drwxr-xr-x  5 root root 4096 Jun 30 17:47 mysql
-drwxr-xr-x  2 root root 4096 Aug  3 12:23 OperatingSystem
-drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ll
+> total 40
+> drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
+> drwxr-xr-x  3 root root 4096 Jul  4 17:30 dfs
+> drwxr-xr-x  5 root root 4096 Jul  6 16:36 InternetChatRoom
+> drwxr-xr-x  9 root root 4096 Jul  6 16:39 linux_high_performance_servers
+> drwxr-xr-x  2 root root 4096 Jul 14 17:48 metting
+> drwxr-xr-x  3 root root 4096 Jun 30 18:05 minio
+> drwxr-xr-x  4 root root 4096 Jul  5 18:49 moyi
+> drwxr-xr-x  5 root root 4096 Jun 30 17:47 mysql
+> drwxr-xr-x  2 root root 4096 Aug  3 12:23 OperatingSystem
+> drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
+> ```
 
 6. `ls -l dirname`显示`dirname`中目录详细信息
-```shell
-[root@haibara home]# ls -l TinyWebServer/
-total 109184
--rw-r--r-- 1 root root   6029119 Jul  6 16:39 2024_02_20_ServerLog
--rw-r--r-- 1 root root 100825534 Jul  6 16:41 2024_03_12_ServerLog
--rw-r--r-- 1 root root   1019200 Jul  6 16:40 2024_03_13_ServerLog
--rw-r--r-- 1 root root    824367 Jul  6 16:40 2024_03_14_ServerLog
--rw-r--r-- 1 root root    918557 Jul  6 16:41 2024_03_15_ServerLog
--rw-r--r-- 1 root root    851973 Jul  6 16:41 2024_03_16_ServerLog
--rw-r--r-- 1 root root    829551 Jul  6 16:41 2024_03_17_ServerLog
--rw-r--r-- 1 root root       141 Jul  6 16:41 2024_03_18_ServerLog
--rw-r--r-- 1 root root        47 Jul  6 16:41 2024_03_25_ServerLog
-drwxr-xr-x 3 root root      4096 Jul  6 16:41 build
--rw-r--r-- 1 root root        24 Jul  6 16:41 build.sh
-drwxr-xr-x 2 root root      4096 Jul  6 16:41 CGImysql
--rw-r--r-- 1 root root       919 Jul  6 16:41 CMakeLists.txt
--rw-r--r-- 1 root root      1636 Jul  6 16:41 config.cpp
--rw-r--r-- 1 root root       650 Jul  6 16:41 config.h
-drwxr-xr-x 2 root root      4096 Jul  6 16:41 http
--rw-r--r-- 1 root root     11357 Jul  6 16:41 LICENSE
-drwxr-xr-x 2 root root      4096 Jul  6 16:41 lock
-drwxr-xr-x 2 root root      4096 Jul  6 16:41 log
--rw-r--r-- 1 root root       894 Jul  6 16:41 main.cpp
--rw-r--r-- 1 root root       311 Jul  6 16:41 makefile
--rw-r--r-- 1 root root     12184 Jul  6 16:41 README.md
-drwxr-xr-x 2 root root      4096 Jul  6 16:42 root
--rw-r--r-- 1 root root    378512 Jul  6 16:41 server
-drwxr-xr-x 3 root root      4096 Jul  6 16:43 test_pressure
-drwxr-xr-x 2 root root      4096 Jul  6 16:43 threadpool
-drwxr-xr-x 2 root root      4096 Jul  6 16:43 timer
--rw-r--r-- 1 root root     11000 Jul  6 16:43 webserver.cpp
--rw-r--r-- 1 root root      1967 Jul  6 16:43 webserver.h
-```
+> ```shell
+> [root@haibara home]# ls -l TinyWebServer/
+> total 109184
+> -rw-r--r-- 1 root root   6029119 Jul  6 16:39 2024_02_20_ServerLog
+> -rw-r--r-- 1 root root 100825534 Jul  6 16:41 2024_03_12_ServerLog
+> -rw-r--r-- 1 root root   1019200 Jul  6 16:40 2024_03_13_ServerLog
+> -rw-r--r-- 1 root root    824367 Jul  6 16:40 2024_03_14_ServerLog
+> -rw-r--r-- 1 root root    918557 Jul  6 16:41 2024_03_15_ServerLog
+> -rw-r--r-- 1 root root    851973 Jul  6 16:41 2024_03_16_ServerLog
+> -rw-r--r-- 1 root root    829551 Jul  6 16:41 2024_03_17_ServerLog
+> -rw-r--r-- 1 root root       141 Jul  6 16:41 2024_03_18_ServerLog
+> -rw-r--r-- 1 root root        47 Jul  6 16:41 2024_03_25_ServerLog
+> drwxr-xr-x 3 root root      4096 Jul  6 16:41 build
+> -rw-r--r-- 1 root root        24 Jul  6 16:41 build.sh
+> drwxr-xr-x 2 root root      4096 Jul  6 16:41 CGImysql
+> -rw-r--r-- 1 root root       919 Jul  6 16:41 CMakeLists.txt
+> -rw-r--r-- 1 root root      1636 Jul  6 16:41 config.cpp
+> -rw-r--r-- 1 root root       650 Jul  6 16:41 config.h
+> drwxr-xr-x 2 root root      4096 Jul  6 16:41 http
+> -rw-r--r-- 1 root root     11357 Jul  6 16:41 LICENSE
+> drwxr-xr-x 2 root root      4096 Jul  6 16:41 lock
+> drwxr-xr-x 2 root root      4096 Jul  6 16:41 log
+> -rw-r--r-- 1 root root       894 Jul  6 16:41 main.cpp
+> -rw-r--r-- 1 root root       311 Jul  6 16:41 makefile
+> -rw-r--r-- 1 root root     12184 Jul  6 16:41 README.md
+> drwxr-xr-x 2 root root      4096 Jul  6 16:42 root
+> -rw-r--r-- 1 root root    378512 Jul  6 16:41 server
+> drwxr-xr-x 3 root root      4096 Jul  6 16:43 test_pressure
+> drwxr-xr-x 2 root root      4096 Jul  6 16:43 threadpool
+> drwxr-xr-x 2 root root      4096 Jul  6 16:43 timer
+> -rw-r--r-- 1 root root     11000 Jul  6 16:43 webserver.cpp
+> -rw-r--r-- 1 root root      1967 Jul  6 16:43 webserver.h
+> ```
 
 7. `ls -dl dirname`显示`dirname`本身的详细信息
-```shell
-[root@haibara home]# ls -dl TinyWebServer/
-drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer/
-```
+> ```shell
+> [root@haibara home]# ls -dl TinyWebServer/
+> drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer/
+> ```
 
 8. `ls -R`递归查看目录
-```shell
-[root@haibara home]# ls -R code/
-code/:
-A  B
-
-code/A:
-a.txt
-
-code/B:
-b.txt
-```
+> ```shell
+> [root@haibara home]# ls -R code/
+> code/:
+> A  B
+> 
+> code/A:
+> a.txt
+> 
+> code/B:
+> b.txt
+> ```
 
 9. `ls -Rl`递归展示详细信息
-```shell
-[root@haibara home]# ls -Rl code/
-code/:
-total 8
-drwxr-xr-x 2 root root 4096 Aug  3 19:30 A
-drwxr-xr-x 2 root root 4096 Aug  3 19:30 B
-
-code/A:
-total 0
--rw-r--r-- 1 root root 0 Aug  3 19:30 a.txt
-
-code/B:
-total 0
--rw-r--r-- 1 root root 0 Aug  3 19:30 b.txt
-```
+> ```shell
+> [root@haibara home]# ls -Rl code/
+> code/:
+> total 8
+> drwxr-xr-x 2 root root 4096 Aug  3 19:30 A
+> drwxr-xr-x 2 root root 4096 Aug  3 19:30 B
+> 
+> code/A:
+> total 0
+> -rw-r--r-- 1 root root 0 Aug  3 19:30 a.txt
+> 
+> code/B:
+> total 0
+> -rw-r--r-- 1 root root 0 Aug  3 19:30 b.txt
+> ```
 
 10. 文件权限说明
-```shell
-drwxr-xr-x | 3        | root |  root |  4096 |  Jul  6 16:41 |  build
--rw-r--r-- | 1        | root |  root |  24   |  Jul  6 16:41 |  build.sh
-drwxr-xr-x | 2        | root |  root |  4096 |  Jul  6 16:41 |  CGImysql
-
-文件权限     硬链接计数  所有者  所属组   大小    时间            文件名/文件夹名
-
-权限具体展开
--rw-r—r—
-1234567890
-1 代表文件类型
-234 代表所有者读写执行权限
-567 代表同组用户读写执行权限
-890 代表其他人读写执行权限
-```
-
-11. `which instruct`查看`instruct`命令所在目录位置
-```shell
-[root@haibara home]# which date
-/usr/bin/date
-```
+> ```shell
+> drwxr-xr-x | 3        | root |  root |  4096 |  Jul  6 16:41 |  build
+> -rw-r--r-- | 1        | root |  root |  24   |  Jul  6 16:41 |  build.sh
+> drwxr-xr-x | 2        | root |  root |  4096 |  Jul  6 16:41 |  CGImysql
+> 
+> 文件权限     硬链接计数  所有者  所属组   大小    时间            文件名/文件夹名
+> 
+> 权限具体展开
+> -rw-r—r—
+> 1234567890
+> 1 代表文件类型
+> 234 代表所有者读写执行权限
+> 567 代表同组用户读写执行权限
+> 890 代表其他人读写执行权限
+> ```
+> 
+> 11. `which instruct`查看`instruct`命令所在目录位置
+> ```shell
+> [root@haibara home]# which date
+> /usr/bin/date
+> ```
 
 12. 隐藏终端中的路径
-```shell
-vi ~./bash 打开使用的 shell 环境配置文件
-末尾添加 PS1=$ 保存退出，重启终端即可
-```
-![隐藏终端中的路径](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408032314894.png)
+> ```shell
+> vi ~./bash 打开使用的 shell 环境配置文件
+> 末尾添加 PS1=$ 保存退出，重启终端即可
+> ```
+> ![隐藏终端中的路径](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408032314894.png)
 
 13. `mkdir dirname`新建目录
-```shell
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-[root@haibara home]# mkdir tempDir
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempDir  TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> [root@haibara home]# mkdir tempDir
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempDir  TinyWebServer
+> ```
 
 14. `rmdir dirname`删除空目录，非空目录删不掉
-```shell
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempDir  TinyWebServer
-[root@haibara home]# rmdir tempDir/
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempDir  TinyWebServer
+> [root@haibara home]# rmdir tempDir/
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> ```
 
 15. `touch filename`创建名为`name`的空文件
-```shell
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-[root@haibara home]# touch tempFile
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempFile  TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> [root@haibara home]# touch tempFile
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempFile  TinyWebServer
+> ```
 
 16. `rm filename`删除文件
-```shell
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempFile  TinyWebServer
-[root@haibara home]# rm tempFile 
-rm: remove regular empty file 'tempFile'? y
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempFile  TinyWebServer
+> [root@haibara home]# rm tempFile 
+> rm: remove regular empty file 'tempFile'? y
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> ```
 
 17. `rm -r dirname`递归删除目录
-```shell
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-[root@haibara home]# rm -r code/
-rm: descend into directory 'code/'? n
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> [root@haibara home]# rm -r code/
+> rm: descend into directory 'code/'? n
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> ```
 
 18. `rm -rf dirname`强制删除
-```shell
-[root@haibara home]# ls
-code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-[root@haibara home]# rm -rf code/
-[root@haibara home]# ls
-dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
-```
+> ```shell
+> [root@haibara home]# ls
+> code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> [root@haibara home]# rm -rf code/
+> [root@haibara home]# ls
+> dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
+> ```
 
 19. `mv file1 file2 location`将文件 1 和文件 2 移动到目标位置
-```shell
-[root@haibara OperatingSystem]# ls
-a.txt  b.txt  tempDir
-[root@haibara OperatingSystem]# mv a.txt b.txt tempDir/
-[root@haibara OperatingSystem]# ls
-tempDir
-[root@haibara OperatingSystem]# ls tempDir/
-a.txt  b.txt
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> a.txt  b.txt  tempDir
+> [root@haibara OperatingSystem]# mv a.txt b.txt tempDir/
+> [root@haibara OperatingSystem]# ls
+> tempDir
+> [root@haibara OperatingSystem]# ls tempDir/
+> a.txt  b.txt
+> ```
 
 20. `cp filename dirname`复制文件到目录
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir
-[root@haibara OperatingSystem]# cp c.txt tempDir/
-[root@haibara OperatingSystem]# ls -R
-.:
-c.txt  tempDir
-
-./tempDir:
-a.txt  b.txt  c.txt
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir
+> [root@haibara OperatingSystem]# cp c.txt tempDir/
+> [root@haibara OperatingSystem]# ls -R
+> .:
+> c.txt  tempDir
+> 
+> ./tempDir:
+> a.txt  b.txt  c.txt
+> ```
 
 21. `cp filename1 filename2`复制文件 1 并重命名为文件 2
-```shell
-[root@haibara tempDir]# ls
-a.txt  b.txt  c.txt
-[root@haibara tempDir]# cp a.txt a_copy.txt
-[root@haibara tempDir]# ls
-a_copy.txt  a.txt  b.txt  c.txt
-```
+> ```shell
+> [root@haibara tempDir]# ls
+> a.txt  b.txt  c.txt
+> [root@haibara tempDir]# cp a.txt a_copy.txt
+> [root@haibara tempDir]# ls
+> a_copy.txt  a.txt  b.txt  c.txt
+> ```
 
 22. `cp -a dirname1 dirname2`复制目录 1 及其下所有文件到目录 2
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-[root@haibara OperatingSystem]# cp -a tempDir tempDirCopy1
-[root@haibara OperatingSystem]# ls -R
-.:
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-
-./tempDir:
-a_copy.txt  a.txt  b.txt  c.txt
-
-./tempDirCopy1:
-tempDir
-
-./tempDirCopy1/tempDir:
-a_copy.txt  a.txt  b.txt  c.txt
-
-./tempDirCopy2:
-[root@haibara OperatingSystem]# ls -Rl
-.:
-total 12
--rw-r--r-- 1 root root    0 Aug  3 19:39 c.txt
-drwxr-xr-x 2 root root 4096 Aug  3 19:40 tempDir
-drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
-drwxr-xr-x 2 root root 4096 Aug  3 19:41 tempDirCopy2
-
-./tempDir:
-total 0
--rw-r--r-- 1 root root 0 Aug  3 19:40 a_copy.txt
--rw-r--r-- 1 root root 0 Aug  3 19:38 a.txt
--rw-r--r-- 1 root root 0 Aug  3 19:39 b.txt
--rw-r--r-- 1 root root 0 Aug  3 19:40 c.txt
-
-./tempDirCopy1:
-total 4
-drwxr-xr-x 2 root root 4096 Aug  3 19:40 tempDir
-
-./tempDirCopy1/tempDir:
-total 0
--rw-r--r-- 1 root root 0 Aug  3 19:40 a_copy.txt
--rw-r--r-- 1 root root 0 Aug  3 19:38 a.txt
--rw-r--r-- 1 root root 0 Aug  3 19:39 b.txt
--rw-r--r-- 1 root root 0 Aug  3 19:40 c.txt
-
-./tempDirCopy2:
-total 0
-
-这里-a 和-r 的差别在于，-a 是完全复制，文件权限，改动时间什么的也完全相同。
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# cp -a tempDir tempDirCopy1
+> [root@haibara OperatingSystem]# ls -R
+> .:
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> 
+> ./tempDir:
+> a_copy.txt  a.txt  b.txt  c.txt
+> 
+> ./tempDirCopy1:
+> tempDir
+> 
+> ./tempDirCopy1/tempDir:
+> a_copy.txt  a.txt  b.txt  c.txt
+> 
+> ./tempDirCopy2:
+> [root@haibara OperatingSystem]# ls -Rl
+> .:
+> total 12
+> -rw-r--r-- 1 root root    0 Aug  3 19:39 c.txt
+> drwxr-xr-x 2 root root 4096 Aug  3 19:40 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 2 root root 4096 Aug  3 19:41 tempDirCopy2
+> 
+> ./tempDir:
+> total 0
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 a_copy.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:38 a.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:39 b.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 c.txt
+> 
+> ./tempDirCopy1:
+> total 4
+> drwxr-xr-x 2 root root 4096 Aug  3 19:40 tempDir
+> 
+> ./tempDirCopy1/tempDir:
+> total 0
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 a_copy.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:38 a.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:39 b.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 c.txt
+> 
+> ./tempDirCopy2:
+> total 0
+> 
+> 这里-a 和-r 的差别在于，-a 是完全复制，文件权限，改动时间什么的也完全相同。
+> ```
 
 23. `cp -r dirname1 dirname2`递归复制目录 1 到目录 2
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-[root@haibara OperatingSystem]# cp -r tempDir tempDirCopy2
-[root@haibara OperatingSystem]# ls -Rl
-.:
-total 12
--rw-r--r-- 1 root root    0 Aug  3 19:39 c.txt
-drwxr-xr-x 2 root root 4096 Aug  3 19:40 tempDir
-drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
-drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
-
-./tempDir:
-total 0
--rw-r--r-- 1 root root 0 Aug  3 19:40 a_copy.txt
--rw-r--r-- 1 root root 0 Aug  3 19:38 a.txt
--rw-r--r-- 1 root root 0 Aug  3 19:39 b.txt
--rw-r--r-- 1 root root 0 Aug  3 19:40 c.txt
-
-./tempDirCopy1:
-total 4
-drwxr-xr-x 2 root root 4096 Aug  3 19:40 tempDir
-
-./tempDirCopy1/tempDir:
-total 0
--rw-r--r-- 1 root root 0 Aug  3 19:40 a_copy.txt
--rw-r--r-- 1 root root 0 Aug  3 19:38 a.txt
--rw-r--r-- 1 root root 0 Aug  3 19:39 b.txt
--rw-r--r-- 1 root root 0 Aug  3 19:40 c.txt
-
-./tempDirCopy2:
-total 4
-drwxr-xr-x 2 root root 4096 Aug  3 19:43 tempDir
-
-./tempDirCopy2/tempDir:
-total 0
--rw-r--r-- 1 root root 0 Aug  3 19:43 a_copy.txt
--rw-r--r-- 1 root root 0 Aug  3 19:43 a.txt
--rw-r--r-- 1 root root 0 Aug  3 19:43 b.txt
--rw-r--r-- 1 root root 0 Aug  3 19:43 c.txt
-
-这里-a 和-r 的差别在于，-a 是完全复制，文件权限，改动时间什么的也完全相同。
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# cp -r tempDir tempDirCopy2
+> [root@haibara OperatingSystem]# ls -Rl
+> .:
+> total 12
+> -rw-r--r-- 1 root root    0 Aug  3 19:39 c.txt
+> drwxr-xr-x 2 root root 4096 Aug  3 19:40 tempDir
+> drwxr-xr-x 3 root root 4096 Aug  3 19:42 tempDirCopy1
+> drwxr-xr-x 3 root root 4096 Aug  3 19:43 tempDirCopy2
+> 
+> ./tempDir:
+> total 0
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 a_copy.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:38 a.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:39 b.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 c.txt
+> 
+> ./tempDirCopy1:
+> total 4
+> drwxr-xr-x 2 root root 4096 Aug  3 19:40 tempDir
+> 
+> ./tempDirCopy1/tempDir:
+> total 0
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 a_copy.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:38 a.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:39 b.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:40 c.txt
+> 
+> ./tempDirCopy2:
+> total 4
+> drwxr-xr-x 2 root root 4096 Aug  3 19:43 tempDir
+> 
+> ./tempDirCopy2/tempDir:
+> total 0
+> -rw-r--r-- 1 root root 0 Aug  3 19:43 a_copy.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:43 a.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:43 b.txt
+> -rw-r--r-- 1 root root 0 Aug  3 19:43 c.txt
+> 
+> 这里-a 和-r 的差别在于，-a 是完全复制，文件权限，改动时间什么的也完全相同。
+> ```
 
 ## 04P 目录和文件操作2
 1. `cat filename`查看文件内容
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-[root@haibara OperatingSystem]# cat c.txt 
-这是第一行
-这是第二行
-这是第三行
-这是第四行
-这是第五行
-这是第六行
-这是第七行
-这是第八行
-这是第九行
-这是第十行
-这是第十一行
-这是第十二行
-这是第十三行
-```
-
-2. `tac filename`逆转查看文件内容
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-[root@haibara OperatingSystem]# tac c.txt 
-这是第十三行
-这是第十二行
-这是第十一行
-这是第十行
-这是第九行
-这是第八行
-这是第七行
-这是第六行
-这是第五行
-这是第四行
-这是第三行
-这是第二行
-这是第一行
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# cat c.txt 
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> 这是第六行
+> 这是第七行
+> 这是第八行
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> ```
+> 
+> 2. `tac filename`逆转查看文件内容
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# tac c.txt 
+> 这是第十三行
+> 这是第十二行
+> 这是第十一行
+> 这是第十行
+> 这是第九行
+> 这是第八行
+> 这是第七行
+> 这是第六行
+> 这是第五行
+> 这是第四行
+> 这是第三行
+> 这是第二行
+> 这是第一行
+> ```
 
 3. `cat`读取终端，就是回显
-```shell
-[root@haibara OperatingSystem]# cat
-读取终端，回显
-读取终端，回显
-^C
-```
+> ```shell
+> [root@haibara OperatingSystem]# cat
+> 读取终端，回显
+> 读取终端，回显
+> ^C
+> ```
 
 4. `more filename`和`cat`差不多，但是对于大文件查看很强势。空格翻页，回车一行用`q`或者`Ctrl-c`退出
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-[root@haibara OperatingSystem]# more c.txt 
-这是第一行
-这是第二行
-这是第三行
-这是第四行
-这是第五行
-这是第六行
-这是第七行
-这是第八行
-这是第九行
-这是第十行
-这是第十一行
-这是第十二行
-这是第十三行
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# more c.txt 
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> 这是第六行
+> 这是第七行
+> 这是第八行
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> ```
 
 5. `less filename`也和`cat`差不多。会进入到另一个阅读界面，空格翻页，回车一行用`q`或者`Ctrl-c`退出
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-[root@haibara OperatingSystem]# less c.txt 
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# less c.txt 
+> ```
 
 6. `head -n filename`查看文件前`n`行，不加`-n`参数默认查看 10 行
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-[root@haibara OperatingSystem]# head -5 c.txt 
-这是第一行
-这是第二行
-这是第三行
-这是第四行
-这是第五行
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# head -5 c.txt 
+> 这是第一行
+> 这是第二行
+> 这是第三行
+> 这是第四行
+> 这是第五行
+> ```
 
 7. `tail -n filename`查看文件后`n`行，默认查看 10 行，顺序显示
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-[root@haibara OperatingSystem]# tail -5 c.txt 
-这是第九行
-这是第十行
-这是第十一行
-这是第十二行
-这是第十三行
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# tail -5 c.txt 
+> 这是第九行
+> 这是第十行
+> 这是第十一行
+> 这是第十二行
+> 这是第十三行
+> ```
 
 8. `tree`命令，查看当前目录结构树（需要自行下载`tree`）
-```shell
-[root@haibara OperatingSystem]# ls
-c.txt  tempDir  tempDirCopy1  tempDirCopy2
-[root@haibara OperatingSystem]# tree
-.
-├── c.txt
-├── tempDir
-│   ├── a_copy.txt
-│   ├── a.txt
-│   ├── b.txt
-│   └── c.txt
-├── tempDirCopy1
-│   └── tempDir
-│       ├── a_copy.txt
-│       ├── a.txt
-│       ├── b.txt
-│       └── c.txt
-└── tempDirCopy2
-    └── tempDir
-        ├── a_copy.txt
-        ├── a.txt
-        ├── b.txt
-        └── c.txt
-
-5 directories, 13 files
-```
+> ```shell
+> [root@haibara OperatingSystem]# ls
+> c.txt  tempDir  tempDirCopy1  tempDirCopy2
+> [root@haibara OperatingSystem]# tree
+> .
+> ├── c.txt
+> ├── tempDir
+> │   ├── a_copy.txt
+> │   ├── a.txt
+> │   ├── b.txt
+> │   └── c.txt
+> ├── tempDirCopy1
+> │   └── tempDir
+> │       ├── a_copy.txt
+> │       ├── a.txt
+> │       ├── b.txt
+> │       └── c.txt
+> └── tempDirCopy2
+>     └── tempDir
+>         ├── a_copy.txt
+>         ├── a.txt
+>         ├── b.txt
+>         └── c.txt
+> 
+> 5 directories, 13 files
+> ```
 
 ## 05P 软链接和硬链接
 

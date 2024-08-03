@@ -9,7 +9,7 @@ Sat Aug  3 19:21:15 CST 2024
 ```
 
 2. `cat /etc/shells`查看当前可使用的`shell`
-```shell
+```vb
 [root@haibara OperatingSystem]# cat /etc/shells
 /bin/sh
 /bin/bash
@@ -18,11 +18,11 @@ Sat Aug  3 19:21:15 CST 2024
 ```
 
 3. `echo $SHELL`查看当前使用的`shell`
-```shell
+```vb
 [root@haibara OperatingSystem]# echo $SHELL
 /bin/bash
 ```
-3. 主键盘快捷键
+4. 主键盘快捷键
 ```
 上              Ctrl-p
 下              Ctrl-n
@@ -45,7 +45,7 @@ Backspace       Backspace   delete 光标前面的单个字符
 ## 02P 类`Unix`系统目录
 
 1. `pwd`查看当前所在目录
-```shell
+```vb
 [root@haibara OperatingSystem]# pwd
 /home/OperatingSystem
 ```
@@ -63,7 +63,7 @@ usr：用户资源管理目录 unix software resource
 ```
 
 3. 查看鼠标日志
-```shell
+```vb
 [root@haibara OperatingSystem]# cd /dev/input/
 [root@haibara input]# ls
 by-id  by-path  event0  event1  event2  event3  event4  event5  event6 mice  mouse0  mouse1  mouse2
@@ -74,7 +74,7 @@ by-id  by-path  event0  event1  event2  event3  event4  event5  event6 mice  mou
 ## 03P 目录和文件操作 1
 
 1. `cd -`返回上一个目录
-```shell
+```vb
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql OperatingSystem  TinyWebServer
 [root@haibara home]# cd ~
@@ -97,13 +97,13 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 3. `ls`列出当前文件夹下目录项
-```shell
+```vb
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 ```
 
 4. `ls -l`显示目录项详细信息
-```shell
+```vb
 [root@haibara home]# ls -l
 total 40
 drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
@@ -119,7 +119,7 @@ drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
 ```
 
 5. `ll`竖排显示目录项和详细信息，`ls -l`的缩写
-```shell
+```vb
 [root@haibara home]# ll
 total 40
 drwxr-xr-x  2 root root 4096 Aug  1 17:19 code
@@ -135,7 +135,7 @@ drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer
 ```
 
 6. `ls -l dirname`显示`dirname`中目录详细信息
-```shell
+```vb
 [root@haibara home]# ls -l TinyWebServer/
 total 109184
 -rw-r--r-- 1 root root   6029119 Jul  6 16:39 2024_02_20_ServerLog
@@ -170,13 +170,13 @@ drwxr-xr-x 2 root root      4096 Jul  6 16:43 timer
 ```
 
 7. `ls -dl dirname`显示`dirname`本身的详细信息
-```shell
+```vb
 [root@haibara home]# ls -dl TinyWebServer/
 drwxr-xr-x 12 root root 4096 Jul  6 16:43 TinyWebServer/
 ```
 
 8. `ls -R`递归查看目录
-```shell
+```vb
 [root@haibara home]# ls -R code/
 code/:
 A  B
@@ -189,7 +189,7 @@ b.txt
 ```
 
 9. `ls -Rl`递归展示详细信息
-```shell
+```vb
 [root@haibara home]# ls -Rl code/
 code/:
 total 8
@@ -206,7 +206,7 @@ total 0
 ```
 
 10. 文件权限说明
-```shell
+```vb
 drwxr-xr-x | 3        | root |  root |  4096 |  Jul  6 16:41 |  build
 -rw-r--r-- | 1        | root |  root |  24   |  Jul  6 16:41 |  build.sh
 drwxr-xr-x | 2        | root |  root |  4096 |  Jul  6 16:41 |  CGImysql
@@ -223,20 +223,20 @@ drwxr-xr-x | 2        | root |  root |  4096 |  Jul  6 16:41 |  CGImysql
 ```
 
 11. `which instruct`查看`instruct`命令所在目录位置
-```shell
+```vb
 [root@haibara home]# which date
 /usr/bin/date
 ```
 
 12. 隐藏终端中的路径
-```shell
+```vb
 vi ~./bash 打开使用的 shell 环境配置文件
 末尾添加 PS1=$ 保存退出，重启终端即可
 ```
 ![隐藏终端中的路径](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408032314894.png)
 
 13. `mkdir dirname`新建目录
-```shell
+```vb
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 [root@haibara home]# mkdir tempDir
@@ -245,7 +245,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 14. `rmdir dirname`删除空目录，非空目录删不掉
-```shell
+```vb
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempDir  TinyWebServer
 [root@haibara home]# rmdir tempDir/
@@ -254,7 +254,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 15. `touch filename`创建名为`name`的空文件
-```shell
+```vb
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 [root@haibara home]# touch tempFile
@@ -263,7 +263,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 16. `rm filename`删除文件
-```shell
+```vb
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  tempFile  TinyWebServer
 [root@haibara home]# rm tempFile 
@@ -273,7 +273,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 17. `rm -r dirname`递归删除目录
-```shell
+```vb
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 [root@haibara home]# rm -r code/
@@ -283,7 +283,7 @@ code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moy
 ```
 
 18. `rm -rf dirname`强制删除
-```shell
+```vb
 [root@haibara home]# ls
 code  dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mysql  OperatingSystem  TinyWebServer
 [root@haibara home]# rm -rf code/
@@ -292,7 +292,7 @@ dfs  InternetChatRoom  linux_high_performance_servers  metting  minio  moyi  mys
 ```
 
 19. `mv file1 file2 location`将文件 1 和文件 2 移动到目标位置
-```shell
+```vb
 [root@haibara OperatingSystem]# ls
 a.txt  b.txt  tempDir
 [root@haibara OperatingSystem]# mv a.txt b.txt tempDir/
@@ -303,7 +303,7 @@ a.txt  b.txt
 ```
 
 20. `cp filename dirname`复制文件到目录
-```shell
+```vb
 [root@haibara OperatingSystem]# ls
 c.txt  tempDir
 [root@haibara OperatingSystem]# cp c.txt tempDir/

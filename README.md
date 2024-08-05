@@ -1246,33 +1246,692 @@
 
 ## 15P 其他命令
 
+1. `who`查看当前在线上的用户情况
+```shell
+[root@haibara OperatingSystem]# who
+root     tty1         2024-07-05 21:54
+root     pts/0        2024-08-05 18:36 (171.105.33.155)
+root     pts/1        2024-08-05 19:21 (171.105.33.155)
+```
+
+
+2. `whoami`查看当前用户，不带有进程
+```shell
+[root@haibara OperatingSystem]# whoami
+root
+```
+
+3. `ps aux | grep 条件` 结果至少有一个，就是当前查询进程
+```shell
+[root@haibara OperatingSystem]# ps aux | grep kernel
+root      520588  0.0  0.0  12216  1188 pts/1    S+   19:22   0:00 grep --color=auto kernel
+```
+
+4. `jobs`查看操作系统当前运行了哪些用户作业
+```shell
+[root@haibara OperatingSystem]# cat
+123  
+123
+^C
+[root@haibara OperatingSystem]# cat &
+[1] 523028
+[root@haibara OperatingSystem]# jobs
+[1]+  Stopped                 cat
+[root@haibara OperatingSystem]# 
+```
+
+5. `kill`杀死进程
+
+在一个会话窗口中编写这样的代码，执行，此时`main.app`程序会阻塞
+```shell
+[root@haibara OperatingSystem]# ls
+main.app  main.cpp
+[root@haibara OperatingSystem]# cat main.cpp
+#include <iostream>
+using namespace std;
+
+void myPrint(int i)
+{
+    if (i % 2 == 1) 
+    {
+        cout << "this turn i = " << i << endl;
+    }
+}
+
+void fun2()
+{
+    cout << "in fun2 start" << endl;
+    cout << "in fun2 end" << endl;
+}
+
+void fun1()
+{
+    cout << "in fun1 start" << endl;
+    fun2();
+    cout << "in fun1 end" << endl;
+}
+
+int main()
+{
+    cout << "in main start" << endl;
+
+    for (int i = 0; i < 10; i++)
+    {
+        myPrint(i);
+    }
+    
+    fun1();
+
+    fun2();
+    
+    cout << "in main end" << endl;
+
+    while (true);
+
+    return 0;
+}
+[root@haibara OperatingSystem]# ./main.app 
+in main start
+this turn i = 1
+this turn i = 3
+this turn i = 5
+this turn i = 7
+this turn i = 9
+in fun1 start
+in fun2 start
+in fun2 end
+in fun1 end
+in fun2 start
+in fun2 end
+in main end
+```
+
+在另一个会话窗口中，查看进程`id`丙用`kill`杀死该进程
+```shell
+[root@haibara OperatingSystem]# ps aux | grep main.app
+root      523062 99.6  0.1  13856  1884 pts/0    R+   21:44   0:56 ./main.app
+root      523121  0.0  0.0  12216  1184 pts/4    R+   21:45   0:00 grep --color=auto main.app
+[root@haibara OperatingSystem]# kill 523062
+```
+
+此时`main.app`程序被杀死
+```shell
+[root@haibara OperatingSystem]# ./main.app 
+in main start
+this turn i = 1
+this turn i = 3
+this turn i = 5
+this turn i = 7
+this turn i = 9
+in fun1 start
+in fun2 start
+in fun2 end
+in fun1 end
+in fun2 start
+in fun2 end
+in main end
+Terminated
+[root@haibara OperatingSystem]# 
+```
+
+6. `env`环境变量
+```shell
+[root@haibara OperatingSystem]# env
+LS_COLORS=rs=0:di=38;5;33:ln=38;5;51:mh=00:pi=40;38;5;11:so=38;5;13:do=38;5;5:bd=48;5;232;38;5;11:cd=48;5;232;38;5;3:or=48;5;232;38;5;9:mi=01;05;37;41:su=48;5;196;38;5;15:sg=48;5;11;38;5;16:ca=48;5;196;38;5;226:tw=48;5;10;38;5;16:ow=48;5;10;38;5;21:st=48;5;21;38;5;15:ex=38;5;40:*.tar=38;5;9:*.tgz=38;5;9:*.arc=38;5;9:*.arj=38;5;9:*.taz=38;5;9:*.lha=38;5;9:*.lz4=38;5;9:*.lzh=38;5;9:*.lzma=38;5;9:*.tlz=38;5;9:*.txz=38;5;9:*.tzo=38;5;9:*.t7z=38;5;9:*.zip=38;5;9:*.z=38;5;9:*.dz=38;5;9:*.gz=38;5;9:*.lrz=38;5;9:*.lz=38;5;9:*.lzo=38;5;9:*.xz=38;5;9:*.zst=38;5;9:*.tzst=38;5;9:*.bz2=38;5;9:*.bz=38;5;9:*.tbz=38;5;9:*.tbz2=38;5;9:*.tz=38;5;9:*.deb=38;5;9:*.rpm=38;5;9:*.jar=38;5;9:*.war=38;5;9:*.ear=38;5;9:*.sar=38;5;9:*.rar=38;5;9:*.alz=38;5;9:*.ace=38;5;9:*.zoo=38;5;9:*.cpio=38;5;9:*.7z=38;5;9:*.rz=38;5;9:*.cab=38;5;9:*.wim=38;5;9:*.swm=38;5;9:*.dwm=38;5;9:*.esd=38;5;9:*.jpg=38;5;13:*.jpeg=38;5;13:*.mjpg=38;5;13:*.mjpeg=38;5;13:*.gif=38;5;13:*.bmp=38;5;13:*.pbm=38;5;13:*.pgm=38;5;13:*.ppm=38;5;13:*.tga=38;5;13:*.xbm=38;5;13:*.xpm=38;5;13:*.tif=38;5;13:*.tiff=38;5;13:*.png=38;5;13:*.svg=38;5;13:*.svgz=38;5;13:*.mng=38;5;13:*.pcx=38;5;13:*.mov=38;5;13:*.mpg=38;5;13:*.mpeg=38;5;13:*.m2v=38;5;13:*.mkv=38;5;13:*.webm=38;5;13:*.ogm=38;5;13:*.mp4=38;5;13:*.m4v=38;5;13:*.mp4v=38;5;13:*.vob=38;5;13:*.qt=38;5;13:*.nuv=38;5;13:*.wmv=38;5;13:*.asf=38;5;13:*.rm=38;5;13:*.rmvb=38;5;13:*.flc=38;5;13:*.avi=38;5;13:*.fli=38;5;13:*.flv=38;5;13:*.gl=38;5;13:*.dl=38;5;13:*.xcf=38;5;13:*.xwd=38;5;13:*.yuv=38;5;13:*.cgm=38;5;13:*.emf=38;5;13:*.ogv=38;5;13:*.ogx=38;5;13:*.aac=38;5;45:*.au=38;5;45:*.flac=38;5;45:*.m4a=38;5;45:*.mid=38;5;45:*.midi=38;5;45:*.mka=38;5;45:*.mp3=38;5;45:*.mpc=38;5;45:*.ogg=38;5;45:*.ra=38;5;45:*.wav=38;5;45:*.oga=38;5;45:*.opus=38;5;45:*.spx=38;5;45:*.xspf=38;5;45:
+SSH_CONNECTION=171.105.33.155 5409 172.28.119.15 22
+LANG=en_US.UTF-8
+HISTCONTROL=ignoredups
+HOSTNAME=haibara
+S_COLORS=auto
+which_declare=declare -f
+XDG_SESSION_ID=30
+USER=root
+PWD=/home/OperatingSystem
+HOME=/root
+SSH_CLIENT=171.105.33.155 5409 22
+SSH_TTY=/dev/pts/1
+MAIL=/var/spool/mail/root
+TERM=xterm-256color
+SHELL=/bin/bash
+SHLVL=1
+LOGNAME=root
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/0/bus
+XDG_RUNTIME_DIR=/run/user/0
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
+HISTSIZE=1000
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+BASH_FUNC_which%%=() {  ( alias;
+ eval ${which_declare} ) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot $@
+}
+OLDPWD=/root
+_=/usr/bin/env
+```
+
+7. `top`文字版任务管理器
+```shell
+[root@haibara OperatingSystem]# top
+top - 19:23:20 up 30 days, 21:29,  3 users,  load average: 0.00, 0.02, 0.00
+Tasks: 119 total,   1 running, 118 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  3.2 us,  0.0 sy,  0.0 ni, 96.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   1697.2 total,    341.0 free,    785.6 used,    570.6 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    759.0 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                                                                  
+      1 root      20   0  238876   9520   6352 S   0.0   0.5   0:30.70 systemd                                                                                                  
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.30 kthreadd                                                                                                 
+      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp                                                                                                   
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_par_gp                                                                                               
+      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 slub_flushwq                                                                                             
+      7 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/0:0H-events_highpri                                                                              
+      9 root      20   0       0      0      0 I   0.0   0.0   0:14.18 kworker/u4:0-events_unbound                                                                              
+     10 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 mm_percpu_wq                                                                                             
+     11 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks_rude_                                                                                          
+     12 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks_trace                                                                                          
+     13 root      20   0       0      0      0 S   0.0   0.0   0:03.33 ksoftirqd/0                                                                                              
+     14 root      20   0       0      0      0 I   0.0   0.0   5:07.34 rcu_sched                                                                                                
+     15 root      rt   0       0      0      0 S   0.0   0.0   0:00.05 migration/0                                                                                              
+     16 root      rt   0       0      0      0 S   0.0   0.0   0:00.40 watchdog/0                                                                                               
+     17 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0                                                                                                  
+     18 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/1                                                                                                  
+     19 root      rt   0       0      0      0 S   0.0   0.0   0:00.03 watchdog/1                                                                                               
+     20 root      rt   0       0      0      0 S   0.0   0.0   0:00.20 migration/1                                                                                              
+     21 root      20   0       0      0      0 S   0.0   0.0   0:03.29 ksoftirqd/1                                                                                              
+     23 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/1:0H-events_highpri                                                                              
+     25 root      20   0       0      0      0 I   0.0   0.0   0:14.49 kworker/u4:1-events_unbound                                                                              
+     26 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kdevtmpfs                                                                                                
+     27 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 netns                                                                                                    
+     28 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kauditd                                                                                                  
+     29 root      20   0       0      0      0 S   0.0   0.0   0:00.66 khungtaskd                                                                                               
+     30 root      20   0       0      0      0 S   0.0   0.0   0:00.00 oom_reaper                                                                                               
+     31 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 writeback                                                                                                
+     32 root      20   0       0      0      0 S   0.0   0.0   0:00.09 kcompactd0                                                                                               
+     33 root      25   5       0      0      0 S   0.0   0.0   0:00.00 ksmd                                                                                                     
+     34 root      39  19       0      0      0 S   0.0   0.0   0:12.48 khugepaged                                                                                               
+     35 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 crypto                                                                                                   
+     36 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kintegrityd                                                                                              
+     37 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kblockd                                                                                                  
+     38 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 blkcg_punt_bio                                                                                           
+     39 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 tpm_dev_wq                                                                                               
+     40 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 md                                                                                                       
+     41 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 edac-poller                                                                                              
+     42 root      rt   0       0      0      0 S   0.0   0.0   0:00.00 watchdogd                                                                                                
+     44 root       0 -20       0      0      0 I   0.0   0.0   0:05.35 kworker/0:1H-kblockd                                                                                     
+     61 root      20   0       0      0      0 S   0.0   0.0   0:08.11 kswapd0                                                                                                  
+    109 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kthrotld                                                                                                 
+    111 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 acpi_thermal_pm                      
+```
+
+8. `sudo passwd uusername`设置用户密码
+
+   ![设置用户密码](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408052154009.png)
+
+
+9. `sudo su`切换`root`用户
+
+   ![切换 root 用户](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408052154303.png)
+
+
+10. `ifconfig`查看网卡信息
+```shell
+[root@haibara OperatingSystem]# ifconfig
+docker0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        inet6 fe80::42:5ff:fe4d:f30d  prefixlen 64  scopeid 0x20<link>
+        ether 02:42:05:4d:f3:0d  txqueuelen 0  (Ethernet)
+        RX packets 224499  bytes 213254057 (203.3 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 210559  bytes 99637835 (95.0 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.28.119.15  netmask 255.255.240.0  broadcast 172.28.127.255
+        inet6 fe80::216:3eff:fe06:7205  prefixlen 64  scopeid 0x20<link>
+        ether 00:16:3e:06:72:05  txqueuelen 1000  (Ethernet)
+        RX packets 4516631  bytes 3880003027 (3.6 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2678622  bytes 1105683323 (1.0 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+veth8f7e0d8: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::a8be:c8ff:feb0:c587  prefixlen 64  scopeid 0x20<link>
+        ether aa:be:c8:b0:c5:87  txqueuelen 0  (Ethernet)
+        RX packets 5473  bytes 684137 (668.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 7130  bytes 652161 (636.8 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+veth96f5668: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::24d6:4aff:feb6:1416  prefixlen 64  scopeid 0x20<link>
+        ether 26:d6:4a:b6:14:16  txqueuelen 0  (Ethernet)
+        RX packets 106647  bytes 22815626 (21.7 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 115395  bytes 91810696 (87.5 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+vethaf6078f: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::3c84:c8ff:fe83:c0ad  prefixlen 64  scopeid 0x20<link>
+        ether 3e:84:c8:83:c0:ad  txqueuelen 0  (Ethernet)
+        RX packets 95156  bytes 191008598 (182.1 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 77376  bytes 5973480 (5.6 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
+
+11. `man name`系统参考手册查看`name`
+```shell
+[root@haibara OperatingSystem]# man fork
+```
+
+12. `man n name`在系统手册第`n`章查看`name`
+```shell
+[root@haibara OperatingSystem]# man 2 fork
+```
+
+13. `alias 别名='指令'`给命令起别名
+```shell
+[root@haibara OperatingSystem]# alias pg='ps aux | grep'
+[root@haibara OperatingSystem]# pg kernal
+root      520659  0.0  0.0  12216  1188 pts/1    S+   19:24   0:00 grep --color=auto kernal
+```
+
 ## 16P 总结
+```
+Linux 系统： “所见皆文件”
+
+Linux 系统目录：
+bin：存放二进制可执行文件
+boot：存放开机启动程序
+dev：存放设备文件： 字符设备、块设备
+home：存放普通用户
+etc：用户信息和系统配置文件 passwd、group
+lib：库文件：libc.so.6
+root：管理员宿主目录（家目录）
+usr：用户资源管理目录
+Linux 系统文件类型： 7/8 种
+普通文件：-
+目录文件：d
+字符设备文件：c
+块设备文件：b
+软连接：l
+管道文件：p
+套接字：s
+未知文件。
+
+软连接：快捷方式
+为保证软连接可以任意搬移， 创建时务必对源文件使用 绝对路径。
+
+硬链接：
+ln file file.hard
+操作系统给每一个文件赋予唯一的 inode，当有相同 inode 的文件存在时，彼此同步。
+删除时，只将硬链接计数减一。减为 0 时，inode 被释放。
+
+创建用户：
+sudo adduser 新用户名 --- useradd
+
+修改文件所属用户：
+sudo chown 新用户名 待修改文件。
+sudo chown wangwu a.c
+
+删除用户：
+sudo deluser 用户名
+
+创建用户组：
+sudo addgroup 新组名
+
+修改文件所属用户组：
+sudo chgrp 新用户组名 待修改文件。
+sudo chgrp g88 a.c
+
+删除组：
+sudo delgroup 用户组名
+
+使用 chown 一次修改所有者和所属组：
+sudo chown 所有者：所属组 待操作文件。
+
+find 命令：找文件
+-type 按文件类型搜索 d/p/s/c/b/l/ f:文件
+-name 按文件名搜索
+find ./ -name "*file*.jpg"
+-maxdepth 指定搜索深度。应作为第一个参数出现。
+find ./ -maxdepth 1 -name "*file*.jpg"
+-size 按文件大小搜索. 单位：k、M、G
+find /home/itcast -size +20M -size -50M
+-atime、mtime、ctime 天 amin、mmin、cmin 分钟。
+
+-exec：将 find 搜索的结果集执行某一指定命令。
+find /usr/ -name '*tmp*' -exec ls -ld {} \;
+-ok: 以交互式的方式 将 find 搜索的结果集执行某一指定命令
+
+-xargs：将 find 搜索的结果集执行某一指定命令。 当结果集数量过大时，可以分片映射。
+find /usr/ -name '*tmp*' | xargs ls -ld 
+-print0：
+find /usr/ -name '*tmp*' -print0 | xargs -0 ls -ld 
+
+grep 命令：找文件内容
+grep -r 'copy' ./ -n
+-n 参数：:显示行号
+
+ps aux | grep 'cupsd' -- 检索进程结果集。
+
+软件安装：
+1. 联网
+2. 更新软件资源列表到本地。 sudo apt-get update
+3. 安装 sudo apt-get install 软件名
+4. 卸载 sudo apt-get remove 软件名
+5. 使用软件包（.deb） 安装： sudo dpkg -i 安装包名。
+
+tar 压缩：
+1. tar -zcvf 要生成的压缩包名 压缩材料。
+tar zcvf test.tar.gz file1 dir2 使用 gzip 方式压缩。
+tar jcvf test.tar.gz file1 dir2 使用 bzip2 方式压缩。
+
+tar 解压：
+将 压缩命令中的 c --> x
+tar zxvf test.tar.gz 使用 gzip 方式解压缩。
+tar jxvf test.tar.gz 使用 bzip2 方式解压缩。
+
+rar 压缩：
+rar a -r 压缩包名（带.rar 后缀） 压缩材料。
+rar a -r testrar.rar stdio.h test2.mp3
+
+rar 解压：
+unrar x 压缩包名（带.rar 后缀）
+
+zip 压缩：
+zip -r 压缩包名（带.zip 后缀） 压缩材料。
+zip -r testzip.zip dir stdio.h test2.mp3
+
+zip 解压：
+unzip 压缩包名（带.zip 后缀）
+unzip testzip.zip
+
+创建一个目录，大小默认是 4096k
+```
 
 ## 17P 复习
 
 ## 18P `vim`的三种工作模式
 
+![vim 的三种工作模式](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408052159828.png)
+
 ## 19P `vim`基本操作-跳转和删字符
+```
+i 进入编辑模式，光标前插入字符
+a 进入编辑模式，光标后插入字符
+o 进入编辑模式，光标所在行的下一行插入
+I 进入编辑模式，光标所在行的行首插入
+A 进入编辑模式，光标所在行的行末插入字符
+O 进入编辑模式，光标所在行的上一行插入字符
+
+s 删除光标所在字符并进入编辑模式
+S 删除光标所在行并进入编辑模式
+x 删除光标所在字符，工作模式不变
+dw 删除光标所在单词，要求光标在首字母上，如果不在首字母，只会删除当前位置到单词末，工作模式不变
+D 删除光标所在位置到行末，工作模式不变
+0(数字) 光标移到行首，工作模式不变
+$ 光标移到行尾，工作模式不变
+d0 删除光标所在位置到行首，工作模式不变
+d$ 删除光标所在位置到行末，工作模式不变
+
+命令模式下的光标移动
+h 左移
+j 下移
+k 上移
+l 右移
+
+命令模式下行跳转
+line-G 缺点是没有回显
+
+末行模式下行跳转
+:line-回车
+
+跳转首行
+gg （命令模式）
+跳转末行
+G （命令模式）
+
+自动缩进
+在这之前要进行 vimrc 修改，不然自动缩进是 8 个空格
+ubuntu 的 vimrc 位置在/etc/vim/vimrc
+在文件末尾添加三行：
+set tabstop=4 //设置制表符宽度为 4
+set softtabstop=4 // 设置软制表符宽度为 4
+set shiftwidth=4 // 设置缩进空格数为 4
+```
 
 ## 20P `vim`基本操作-删除
+```
+替换单个字符：
+r 命令模式下替换光标选中字符
+
+一段删除，即删除指定区域：
+光标选中要删除的首字符，按 v 进入可视模式，再使用 hjkl 移动到要删除的末尾，按 d 删除
+
+删除整行：
+dd，剪切光标所在行
+n+dd，剪切从光标开始的 n 行
+```
 
 ## 21P `vim`基本操作-复制粘贴
+```
+yy 复制光标所在行
+
+p 向后粘贴剪切板内容，如果复制整行，这里是粘贴在光标所在位置的下一行
+
+P 向前粘贴剪切板内容，如果是整行，这里是粘贴在光标所在位置的上一行
+
+p 和 P 粘贴会出现换行，主要原因是复制整行时，会把行末的换行符也复制下来。
+
+n-yy 复制光标所在位置的 n 行，包括光标所在行
+```
 
 ## 22p `vim`基本操作-查找和替换
+```
+查找
+/+findname 命令模式下查找
+按回车键启动查找后，按 n，会自动找下一个，N 跳到上一个
+查找光标所在单词
+光标在目标单词上时，*或者#查找下一个，这里不要求光标必须在首字母上
+
+替换：末行模式下进行
+单行替换
+光标置于待替换行， :s /待替换词/替换词
+全文替换
+:%s /待替换词/替换词 这个默认替换每行的首个，一行有多个目标词时，后面的不会变
+:%s /待替换词/替换词/g 真正意义上的全局替换
+区域替换
+:24,35s /待替换词/替换词/g 替换 24-35 行之间的目标词
+末行模式下历史命令
+Ctrl-p 上一条命令
+Ctrl-n 下一条命令
+```
 
 ## 23P `vim`基本操作-其他
+```
+命令模式下
+u 撤销操作
+Ctrl-r 反撤销
+
+分屏，末行模式下
+:sp 水平分屏
+:vsp 竖直分屏
+分屏命令+filename，分屏并打开这个文件
+分屏后屏幕切换，Ctrl-w-w
+使用:q 退出光标所在窗口
+使用:qall 退出所有窗口
+
+从 vim 中跳转 manpage，命令模式下
+将光标放在待查看单词上，按 K，默认看第一卷
+n+K，查看第 n 卷
+
+查看宏定义：命令模式
+光标放在待查看词上，[+d 即可查看
+
+vim 下使用 shell 命令：末行模式
+:! + 命令
+操作后，会切换至终端显示结果，出现如下画面，按 Enter 后回到 vim 界面
+```
 
 ## 24P `vim`配置思路
+```
+两个 vim 配置文件
+1. /etc/vim/vimrc
+2. ~/.vimrc
+其中，第二个配置文件会优先加载，属于用户配置
+```
 
-## 25P `gcc`编译4步骤
+## 25P `gcc`编译 4 步骤
+
+![gcc 编译4步骤](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408052208615.png)
+
 
 ## 26P `gcc`编译常用参数
+
+当头文件和源码不在一个目录下时，需要指定头文件
+
+下面是头文件和源码在同一个目录下
+```shell
+[root@haibara OperatingSystem]# vim hello.h
+[root@haibara OperatingSystem]# vim hello.c
+[root@haibara OperatingSystem]# gcc hello.c -o hello.out
+[root@haibara OperatingSystem]# ls
+HeadDir  hello.out  hello.c  hello.h
+[root@haibara OperatingSystem]# ./hello.out
+hello world
+```
+将`hello.h`放入新建的文件夹`headDir`之后，编译会失败
+```shell
+[root@haibara OperatingSystem]# tree
+.
+├── HeadDir
+│   └── hello.h
+└── hello.c
+
+1 directory, 2 files
+[root@haibara OperatingSystem]# g++ main.cpp -o main.out
+g++: error: main.cpp: No such file or directory
+g++: fatal error: no input files
+compilation terminated.
+```
+`-I`参数指定头文件所在位置，位置可以在编译文件前，也可以在后面
+```shell
+[root@haibara OperatingSystem]# tree
+.
+├── HeadDir
+│   └── hello.h
+└── hello.c
+
+1 directory, 2 files
+[root@haibara OperatingSystem]# gcc hello.c -o hello.out -I ./HeadDir/
+[root@haibara OperatingSystem]# ls
+HeadDir  hello.out  hello.c
+[root@haibara OperatingSystem]# ./hello.out
+hello world
+```
+部分参数如下
+```
+-I 指定头文件所在目录位置
+-c 只做预处理，编译，汇编。得到二进制文件
+-g 编译时添加调试文件，用于 gdb 调试
+-Wall 显示所有警告信息
+-D 向程序中“动态”注册宏定义
+-l 指定动态库库名
+-L 指定动态库路径
+```
 
 ## 27P 午后复习
 
 ## 28P 动态库和静态库理论对比
 
+![动态库和静态库理论对比](https://moyi-image.oss-cn-guangzhou.aliyuncs.com/img02/202408052215276.png)
+
 ## 29P 静态库制作
+
+静态库名字以`lib`开头，以`.a`结尾
+例如：`libmylib.a`
+
+静态库生成指令
+`ar rcs libmylib.a file1.o`
+
+步骤一：写好源代码
+```shell
+[root@haibara OperatingSystem]# ls
+add.c  mul.c  sub.c
+[root@haibara OperatingSystem]# cat add.c 
+int add(int a, int b) 
+{
+    return a + b;
+}
+[root@haibara OperatingSystem]# cat sub.c 
+int sub(int a, int b)
+{
+    return a - b;
+}
+[root@haibara OperatingSystem]# cat mul.c 
+int mul(int a, int b)
+{
+    return a * b;
+}
+```
+
+步骤二：编译源代码生成`.o`文件
+```shell
+[root@haibara OperatingSystem]# ls
+add.c  main.c  mul.c  sub.c
+[root@haibara OperatingSystem]# gcc -c add.c -o add.o
+[root@haibara OperatingSystem]# gcc -c sub.c -o sub.o
+[root@haibara OperatingSystem]# gcc -c mul.c -o mul.o
+[root@haibara OperatingSystem]# ls
+add.c  add.o  main.c  mul.c  mul.o  sub.c  sub.o
+```
+
+步骤三：制作静态库`ar rcs libname.a file1.o file2.o …`
+```shell
+[root@haibara OperatingSystem]# ls
+add.c  add.o  main.c  mul.c  mul.o  sub.c  sub.o
+[root@haibara OperatingSystem]# ar rsc libmath.a add.o sub.o mul.o
+[root@haibara OperatingSystem]# ls
+add.c  add.o  libmath.a  main.c  mul.c  mul.o  sub.c  sub.o
+```
+
+静态库的使用：`gcc main.c lib 库名.a -o main.out`
+```shell
+[root@haibara OperatingSystem]# ls
+add.c  add.o  libmath.a  main.app  main.c  mul.c  mul.o  sub.c  sub.o
+[root@haibara OperatingSystem]# gcc main.c libmath.a -o main.out
+main.c: In function ‘main’:
+main.c:7:36: warning: implicit declaration of function ‘add’ [-Wimplicit-function-declaration]
+     printf("%d + %d = %d\n", a, b, add(a, b));
+                                    ^~~
+main.c:8:36: warning: implicit declaration of function ‘sub’ [-Wimplicit-function-declaration]
+     printf("%d - %d = %d\n", a, b, sub(a, b));
+                                    ^~~
+main.c:9:36: warning: implicit declaration of function ‘mul’ [-Wimplicit-function-declaration]
+     printf("%d * %d = %d\n", a, b, mul(a, b));
+                                    ^~~
+[root@haibara OperatingSystem]# ./main.out
+10 + 20 = 30
+10 - 20 = -10
+10 * 20 = 200
+```
+上面代码中，`main.c`直接使用了`mymath`库中的`add sub mul`函数，所以在编译时要导入静态库编译时出现了函数未定义的警告，可以忽略，让系统生成默认的定义
+
+
+`main.c`只有 216，然而`main.out`有 18264，所以静态库使用时，是直接编译到文件里的
+```shell
+[root@haibara OperatingSystem]# ll -a main.c main.out 
+-rwxr-xr-x 1 root root 18264 Aug  5 19:46 main.out
+-rw-r--r-- 1 root root   216 Aug  5 19:46 main.c
+```
 
 ## 30P 静态库使用及头文件对应
 
